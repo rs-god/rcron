@@ -71,4 +71,4 @@ https://github.com/lholden/job_scheduler
 
 rcron is licensed under either of
 
- * MIT license ([LICENSE](LICENSE)
+ * MIT license ([LICENSE])(LICENSE)

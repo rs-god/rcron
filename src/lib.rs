@@ -257,4 +257,21 @@ mod test {
     fn it_works() {
         println!("rcron");
     }
+
+    #[test]
+    fn test_run() {
+        use super::Job;
+        use super::JobScheduler;
+        use std::time::Duration;
+        let mut sched = JobScheduler::new();
+        sched.add(Job::new("1/2 * * * * *".parse().unwrap(), || {
+            println!("I get executed every 2 seconds!");
+        }));
+
+        loop {
+            sched.tick();
+
+            std::thread::sleep(Duration::from_millis(500));
+        }
+    }
 }
