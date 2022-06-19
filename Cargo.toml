@@ -1,6 +1,6 @@
 [package]
 name = "rcron"
-version = "1.0.3"
+version = "1.1.0"
 edition = "2021"
 authors = ["daheige"]
 description = "a simple cron job scheduling for rust"

@@ -60,10 +60,6 @@
 //! }
 //! ```
 
-extern crate chrono;
-extern crate cron;
-extern crate uuid;
-
 use chrono::{offset, DateTime, Duration, Utc};
 pub use cron::Schedule;
 pub use uuid::Uuid;
