@@ -63,9 +63,11 @@ fn main() {
 
 * [cron](https://github.com/zslayton/cron) the cron expression parser we use.
 * [schedule-rs](https://github.com/mehcode/schedule-rs) is a similar rust library that implements it's own cron expression parser.
+* [tokio-cron-scheduler](https://github.com/mvniekerk/tokio-cron-scheduler) Schedule tasks on Tokio using cron-like annotation.
 
 # refer
-https://github.com/lholden/job_scheduler
+- https://github.com/lholden/job_scheduler
+- https://github.com/mvniekerk/tokio-cron-scheduler
 
 ## License
 
