@@ -1,0 +1,13 @@
+[package]
+name = "rcron"
+version = "1.0.1"
+edition = "2021"
+authors = ["daheige"]
+description = "a simple cron job scheduling for rust"
+keywords = ["cron", "crontab", "scheduler", "job","task"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+cron = "0.11.0"
+chrono = "~0.4"
+uuid = { version = "1.1.2", features = ["v4"] }
