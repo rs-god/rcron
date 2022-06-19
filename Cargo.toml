@@ -7,6 +7,8 @@ description = "a simple cron job scheduling for rust"
 keywords = ["cron", "crontab", "scheduler", "job","task"]
 readme = "README.md"
 license = "MIT"
+repository = "https://github.com/rs-god/rcron"
+documentation = "https://docs.rs/rcron/"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
