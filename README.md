@@ -21,8 +21,7 @@ sec   min   hour   day of month   month   day of week   year
 *     *     *      *              *       *             *
 ```
 
-Time is specified for `Local` your local timezone. Note that the year may
-be omitted.
+Time is for `Local` your local timezone.
 
 Comma separated values such as `5,8,10` represent more than one time value. So
 for example, a schedule of `0 2,14,26 * * * *` would execute on the 2nd, 14th,
