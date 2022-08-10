@@ -8,7 +8,7 @@ Be sure to add the rcron crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rcron = "~1.1"
+rcron = "~1.2"
 ```
 
 Creating a schedule for a job is done using the `FromStr` impl for the
@@ -21,7 +21,7 @@ sec   min   hour   day of month   month   day of week   year
 *     *     *      *              *       *             *
 ```
 
-Time is specified for `UTC` and not your local timezone. Note that the year may
+Time is specified for `Local` your local timezone. Note that the year may
 be omitted.
 
 Comma separated values such as `5,8,10` represent more than one time value. So
