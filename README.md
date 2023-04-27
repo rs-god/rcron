@@ -89,4 +89,4 @@ exec task every 5 seconds!
 
 rcron is licensed under either of
 
- * MIT license ([LICENSE])(LICENSE)
+ * MIT license
