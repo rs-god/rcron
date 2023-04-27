@@ -8,7 +8,7 @@
 //!
 //! ```toml
 //! [dependencies]
-//! rcron = "~1.1"
+//! rcron = "~1.2"
 //! ```
 //!
 //! Creating a schedule for a job is done using the `FromStr` impl for the

@@ -8,7 +8,7 @@ Be sure to add the rcron crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rcron = "1.2.1"
+rcron = "1.2.2"
 ```
 
 Creating a schedule for a job is done using the `FromStr` impl for the
@@ -56,6 +56,23 @@ fn main() {
         std::thread::sleep(Duration::from_millis(500));
     }
 }
+```
+
+# example
+```shell
+cargo run --package rcron --example rcron_basic 
+
+    Finished dev [unoptimized + debuginfo] target(s) in 0.09s
+     Running `target/debug/examples/rcron_basic`
+exec task every 10 seconds!
+exec task every 5 seconds!
+exec task every 5 seconds!
+exec task every 10 seconds!
+exec task every 5 seconds!
+exec task every 5 seconds!
+exec task every 10 seconds!
+exec task every 5 seconds!
+exec task every 5 seconds!
 ```
 
 ## Similar Libraries
