@@ -98,31 +98,17 @@ impl<'a> Job<'a> {
 
     fn tick(&mut self) {
         let now = Local::now();
-        if self.last_tick.is_none() {
-            self.last_tick = Some(now);
-            return;
-        }
-        if self.limit_missed_runs > 0 {
-            for event in self
-                .schedule
-                .after(&self.last_tick.unwrap())
-                .take(self.limit_missed_runs)
-            {
-                if event > now {
-                    break;
-                }
-                (self.run)();
-            }
-        } else {
-            for event in self.schedule.after(&self.last_tick.unwrap()) {
-                if event > now {
-                    break;
-                }
-                (self.run)();
-            }
+        let last_tick = self.last_tick.get_or_insert_with(|| now);
+
+        if *last_tick < now {
+            self.schedule
+                .after(last_tick)
+                .take(self.limit_missed_runs.saturating_add(1))
+                .take_while(|&event| event <= now)
+                .for_each(|_| (self.run)());
         }
 
-        self.last_tick = Some(now);
+        *last_tick = now;
     }
 
     /// Set the limit for missed jobs in the case of delayed runs. Setting to 0 means unlimited.
@@ -233,17 +219,19 @@ impl<'a> JobScheduler<'a> {
             // Take a guess if there are no jobs.
             return std::time::Duration::from_millis(500);
         }
-        let mut duration = Duration::zero();
+
         let now = Local::now();
-        for job in self.jobs.iter() {
-            for event in job.schedule.upcoming(offset::Local).take(1) {
-                let d = event - now;
-                if duration.is_zero() || d < duration {
-                    duration = d;
-                }
-            }
-        }
-        duration.to_std().unwrap()
+        let durations = self
+            .jobs
+            .iter()
+            .flat_map(|job| job.schedule.upcoming(offset::Local).take(1))
+            .map(|event| event.signed_duration_since(now));
+
+        // Find the minimum duration or return a default if the iterator is empty.
+        let min_duration = durations.min().unwrap_or(Duration::milliseconds(500));
+
+        // Convert to std::time::Duration, assuming the conversion will always succeed.
+        min_duration.to_std().unwrap()
     }
 }
 
