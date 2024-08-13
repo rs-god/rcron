@@ -60,11 +60,11 @@
 //! }
 //! ```
 
-use chrono::{offset, DateTime, Duration, Local};
+use chrono::{DateTime, Duration, Local};
 pub use cron::Schedule;
 pub use uuid::Uuid;
 
-/// A schedulable `Job`.
+/// A scheduled `Job`.
 pub struct Job<'a> {
     schedule: Schedule,
     run: Box<dyn (FnMut() -> ()) + 'a>,
@@ -102,24 +102,18 @@ impl<'a> Job<'a> {
             self.last_tick = Some(now);
             return;
         }
+
         if self.limit_missed_runs > 0 {
-            for event in self
-                .schedule
+            self.schedule
                 .after(&self.last_tick.unwrap())
                 .take(self.limit_missed_runs)
-            {
-                if event > now {
-                    break;
-                }
-                (self.run)();
-            }
+                .take_while(|&event| event <= now)
+                .for_each(|_| (self.run)());
         } else {
-            for event in self.schedule.after(&self.last_tick.unwrap()) {
-                if event > now {
-                    break;
-                }
-                (self.run)();
-            }
+            self.schedule
+                .after(&self.last_tick.unwrap())
+                .take_while(|&event| event <= now)
+                .for_each(|_| (self.run)());
         }
 
         self.last_tick = Some(now);
@@ -233,10 +227,11 @@ impl<'a> JobScheduler<'a> {
             // Take a guess if there are no jobs.
             return std::time::Duration::from_millis(500);
         }
+
         let mut duration = Duration::zero();
         let now = Local::now();
         for job in self.jobs.iter() {
-            for event in job.schedule.upcoming(offset::Local).take(1) {
+            for event in job.schedule.upcoming(Local).take(1) {
                 let d = event - now;
                 if duration.is_zero() || d < duration {
                     duration = d;

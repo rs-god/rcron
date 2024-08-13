@@ -8,7 +8,7 @@ Be sure to add the rcron crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rcron = "1.2.2"
+rcron = "1.2.3"
 ```
 
 Creating a schedule for a job is done using the `FromStr` impl for the
@@ -54,6 +54,10 @@ fn main() {
         sched.tick();
 
         std::thread::sleep(Duration::from_millis(500));
+        
+        // Or use the following method.
+        // The `time_till_next_job` method returns the duration till the next job is supposed to run. 
+        // std::thread::sleep(sched.time_till_next_job());
     }
 }
 ```
