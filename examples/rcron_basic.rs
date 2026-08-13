@@ -1,6 +1,7 @@
 use rcron::{Job, JobScheduler};
 // use std::time::Duration;
 
+// cargo run --example rcron_basic
 fn main() {
     let mut sched = JobScheduler::new();
 
