@@ -1,7 +1,7 @@
 [package]
 name = "rcron"
-version = "1.2.5"
-edition = "2021"
+version = "1.3.0"
+edition = "2024"
 authors = ["daheige"]
 description = "a simple cron job scheduling for rust"
 keywords = ["cron", "crontab", "scheduler", "job","task"]
@@ -14,4 +14,4 @@ documentation = "https://docs.rs/rcron/"
 [dependencies]
 cron = "0.17.0"
 chrono = "0.4.45"
-uuid = { version = "1.26.1", features = ["v4"] }
+uuid = { version = "1.29.0", features = ["v4"] }

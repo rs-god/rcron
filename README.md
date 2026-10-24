@@ -8,7 +8,7 @@ Be sure to add the rcron crate to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-rcron = "1.2.5"
+rcron = "1.3.0"
 ```
 
 Creating a schedule for a job is done using the `FromStr` impl for the
